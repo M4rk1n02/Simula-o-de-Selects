@@ -52,6 +52,12 @@ function addRow() {
   displayTableData(table);
 }
 
+function removeRow() {
+  const table = tables[tables.length - 1];
+  table.rows.pop();
+  displayTableData(table);
+}
+
 function displayTableData(table) {
   const output = document.getElementById('table-data');
   let text = `${table.name}\nColumns: ${table.columns.join(', ')}\n`;
