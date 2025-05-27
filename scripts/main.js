@@ -7,6 +7,14 @@ function addColumn() {
   container.appendChild(input);
 }
 
+function removeColumn(){
+  const container = document.getElementById('columns-container');
+
+  if(container.hasChildNodes){
+    container.removeChild(container.lastChild);
+  }
+}
+
 function finalizeTable() {
   const tableName = document.getElementById('table-name').value;
   const columnInputs = document.querySelectorAll('#columns-container input');
