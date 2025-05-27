@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de JOIN</title>
 </head>
 <body>
-    
+  <h1>Simulador de JOIN</h1>
+  <div id="output"></div>
+<script type="module">
+  import { Table, innerJoin, project } from './scripts/join.js';
+
+  const clientes = new Table("Clientes", ["id_cliente", "nome"], "id_cliente");
+  clientes.insert({ id_cliente: 1, nome: "Alice" });
+  clientes.insert({ id_cliente: 2, nome: "Bob" });
+
+  const produtos = new Table("Produtos", ["id_produto", "nome_produto", "preco"], "id_produto");
+  produtos.insert({ id_produto: 101, nome_produto: "Camiseta", preco: 50.0 });
+  produtos.insert({ id_produto: 102, nome_produto: "Calça", preco: 120.0 });
+
+  const pedidos = new Table("Pedidos", ["id_pedido", "id_cliente", "id_produto", "quantidade"], "id_pedido");
+  pedidos.insert({ id_pedido: 1, id_cliente: 1, id_produto: 101, quantidade: 2 });
+  pedidos.insert({ id_pedido: 2, id_cliente: 2, id_produto: 102, quantidade: 1 });
+
+  const clientesPedidos = innerJoin(clientes, pedidos, "id_cliente", "id_cliente");
+
+  const resultadoFinal = innerJoin(clientesPedidos, produtos, "id_produto", "id_produto");
+
+  const projeção = project(resultadoFinal, ["nome", "nome_produto", "quantidade", "preco"]);
+  console.log("Resultado Final (Projeção):", projeção);
+
+  console.log("Clientes + Pedidos JOIN:", clientesPedidos);
+  console.log("Resultado Final (JOIN Completo):", resultadoFinal);
+</script>
 </body>
 </html>
