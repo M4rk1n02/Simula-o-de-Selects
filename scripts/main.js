@@ -1,4 +1,5 @@
 let tables = [];
+const tablesByName = {};
 let currentTable = null;
 
 function addColumn() {
@@ -31,6 +32,8 @@ function finalizeTable() {
   currentTable = table;
   alert(`Table "${tableName}" created!`);
   prepareDataInsertion(table);
+  tablesByName[table.name] = table;
+  renderColumnCheckboxes(table, 'columns-to-select');
 }
 
 function prepareDataInsertion(table) {
@@ -93,4 +96,61 @@ function displayTableData(table) {
   }
 
   output.textContent = text;
+}
+
+function renderColumnCheckboxes(table, containerId) {
+  const container = document.getElementById(containerId);
+
+  // (1) Armazena a tabela no dicionário global
+  tablesByName[table.name] = table;
+
+  // (2) Cria o container específico pra essa tabela
+  const tableContainer = document.createElement("div");
+  tableContainer.id = `select-container-${table.name}`;
+  tableContainer.style.marginBottom = "20px";
+  tableContainer.style.border = "1px solid #ccc";
+  tableContainer.style.padding = "10px";
+  tableContainer.style.borderRadius = "8px";
+
+  const title = document.createElement("h3");
+  title.textContent = `Selecionar colunas da tabela "${table.name}"`;
+  tableContainer.appendChild(title);
+
+  // (3) Cria os checkboxes
+  table.columns.forEach(column => {
+    const label = document.createElement("label");
+    label.style.display = "block";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = `${table.name}-checkbox`;
+    checkbox.value = column;
+
+    label.appendChild(checkbox);
+    label.append(` ${column}`);
+    tableContainer.appendChild(label);
+  });
+
+  // (4) Cria o botão SELECT com dataset
+  const button = document.createElement("button");
+  button.textContent = "Select";
+  button.dataset.tableName = table.name;
+  button.onclick = (event) => {
+    const tableName = event.target.dataset.tableName;
+    const tableRef = tablesByName[tableName];
+    handleSelect(tableRef);
+  };
+  tableContainer.appendChild(button);
+
+  // (5) Cria o output
+  const output = document.createElement("pre");
+  output.id = `select-output-${table.name}`;
+  output.style.background = "#f0f0f0";
+  output.style.padding = "10px";
+  output.style.borderRadius = "5px";
+  output.style.marginTop = "10px";
+  tableContainer.appendChild(output);
+
+  // (6) Adiciona no container principal
+  container.appendChild(tableContainer);
 }

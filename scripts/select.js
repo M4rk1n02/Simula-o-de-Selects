@@ -48,21 +48,38 @@ function getDataFromTable(table, targetColumns) {
 }
 
 /**
- * TODO: Resta tratar exceção de colunas-alvo inexistentes.
- * @param tableName
- * @param targetColumns
- * @returns {*|boolean}
+ *
+ * @param table
+ * @param selectedColumns
+ * @returns {{}[]}
  */
-function select(tableName, targetColumns) {
-    try {
-        const table = getTableObject(tableName);
-        if(!tableHasTargetColumns(table, targetColumns)) {
-            throw new Error(`Columns (${targetColumns.join(', ')}) does not exists on table '${table.name}'`);
-        }
-        return getDataFromTable(table, targetColumns);
+function select(table, selectedColumns) {
+    const colIndices = selectedColumns.map(col => table.columns.indexOf(col));
 
-    } catch(error) {
-        alert(error.message);
-        return false;
+    return table.rows.map(row => {
+        const result = {};
+        colIndices.forEach((index, i) => {
+            result[selectedColumns[i]] = row[index];
+        });
+        return result;
+    });
+}
+
+
+function handleSelect(table) {
+    const checkboxes = document.querySelectorAll(
+        `input[name="${table.name}-checkbox"]:checked`
+    );
+
+    const selectedColumns = Array.from(checkboxes).map(cb => cb.value);
+
+    if (selectedColumns.length === 0) {
+        alert(`Selecione pelo menos uma coluna da tabela "${table.name}".`);
+        return;
     }
+
+    const result = select(table, selectedColumns);
+
+    const output = document.getElementById(`select-output-${table.name}`);
+    output.textContent = JSON.stringify(result, null, 2);
 }
