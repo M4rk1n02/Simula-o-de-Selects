@@ -1,4 +1,5 @@
 let tables = [];
+let currentTable = null;
 
 function addColumn() {
   const container = document.getElementById('columns-container');
@@ -27,6 +28,7 @@ function finalizeTable() {
   };
 
   tables.push(table);
+  currentTable = table;
   alert(`Table "${tableName}" created!`);
   prepareDataInsertion(table);
 }
@@ -44,27 +46,51 @@ function prepareDataInsertion(table) {
 }
 
 function addRow() {
-  const table = tables[tables.length - 1]; // Get the last table created
-  const inputs = document.querySelectorAll('#insert-fields input');
-  const row = Array.from(inputs).map(input => input.value);
+   if (!currentTable) {
+    alert("No table selected.");
+    return;
+  }
 
-  table.rows.push(row);
-  displayTableData(table);
+  const inputs = document.querySelectorAll('#insert-fields input');
+  const row = Array.from(inputs).map(input => input.value.trim());
+
+  if (row.some(value => value === '')) {
+    alert("Please fill in all fields before adding a row.");
+    return;
+  }
+
+  currentTable.rows.push(row);
+  inputs.forEach(input => input.value = '');
+
+  displayTableData(currentTable);
 }
 
 function removeRow() {
-  const table = tables[tables.length - 1];
-  table.rows.pop();
-  displayTableData(table);
+  if (!currentTable) {
+    alert("No table selected.");
+    return;
+  }
+
+  if (currentTable.rows.length === 0) {
+    alert("No rows to remove.");
+    return;
+  }
+
+  currentTable.rows.pop();
+  displayTableData(currentTable);
 }
 
 function displayTableData(table) {
   const output = document.getElementById('table-data');
-  let text = `${table.name}\nColumns: ${table.columns.join(', ')}\n`;
+  let text = `Table: ${table.name}\nColumns: ${table.columns.join(', ')}\n`;
 
-  table.rows.forEach((row, index) => {
-    text += `${index + 1}: ${row.join(', ')}\n`;
-  });
+  if (table.rows.length === 0) {
+    text += "No data yet.";
+  } else {
+    table.rows.forEach((row, index) => {
+      text += `${index + 1}: ${row.join(', ')}\n`;
+    });
+  }
 
   output.textContent = text;
 }
