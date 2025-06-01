@@ -15,12 +15,33 @@ class Table {
 }
 
 function innerJoin(table1, table2, t1Key, t2Key) {
-  return table1.records.flatMap(record1 =>
-    table2.records
-      .filter(record2 => record1[t1Key] === record2[t2Key])
-      .map(record2 => ({ ...record1, ...record2 }))
-  );
+  const result = [];
+
+  for (const row1 of table1.records) {
+    for (const row2 of table2.records) {
+      if (row1[t1Key] === row2[t2Key]) {
+        const combined = {};
+
+        
+        table1.columns.forEach((col) => {
+          combined[`${table1.name}.${col.name}`] = row1[col.name];
+        });
+
+       
+        table2.columns.forEach((col) => {
+          combined[`${table2.name}.${col.name}`] = row2[col.name];
+        });
+
+        result.push(combined);
+      }
+    }
+  }
+
+  return result;
 }
+
+
+window.innerJoin = innerJoin;
 
 function project(data, fields) {
   return data.map(record => {
@@ -34,4 +55,5 @@ function project(data, fields) {
   });
 }
 
-export { Table, innerJoin, project };
+window.Table = Table;
+window.innerJoin = innerJoin;

@@ -32,9 +32,29 @@
     <div id="columns-to-select"></div>
   </div>
 
-  <script src="scripts/main.js"></script>
+  <div id="join-section">
+    <h2>Join Tables</h2>
+    <label for="join-table1">Table 1:</label>
+    <select id="join-table1"></select>
+
+    <label for="join-table2">Table 2:</label>
+    <select id="join-table2"></select>
+
+    <label for="join-key1">Key from Table 1:</label>
+    <input type="text" id="join-key1" placeholder="Ex: id">
+
+    <label for="join-key2">Key from Table 2:</label>
+    <input type="text" id="join-key2" placeholder="Ex: id_cliente">
+
+    <button onclick="performJoin()">Execute Join</button>
+
+    <pre id="join-output"></pre>
+  </div>
+
+
   <script src="scripts/join.js"></script>
   <script src="scripts/select.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 
 </html>

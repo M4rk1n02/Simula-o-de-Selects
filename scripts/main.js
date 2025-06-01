@@ -65,6 +65,7 @@ function finalizeTable() {
   prepareDataInsertion(table);
   tablesByName[table.name] = table;
   renderColumnCheckboxes(table, 'columns-to-select');
+  populateJoinTableOptions(); 
 }
 
 function prepareDataInsertion(table) {
@@ -185,4 +186,74 @@ function renderColumnCheckboxes(table, containerId) {
 
   // (6) Adiciona no container principal
   container.appendChild(tableContainer);
+}
+
+function performJoin() {
+  const table1Name = document.getElementById('join-table1').value;
+  const table2Name = document.getElementById('join-table2').value;
+  const key1 = document.getElementById('join-key1').value.trim();
+  const key2 = document.getElementById('join-key2').value.trim();
+
+  const table1 = tablesByName[table1Name];
+  const table2 = tablesByName[table2Name];
+
+  if (!table1 || !table2) {
+    alert("Selecione duas tabelas válidas.");
+    return;
+  }
+
+  if (!key1 || !key2) {
+    alert("Informe as chaves para o JOIN.");
+    return;
+  }
+
+  try {
+    // Aqui converte as rows em records para o innerJoin entender
+    const table1Records = { 
+      name: table1.name, 
+      columns: table1.columns, 
+      records: convertRowsToRecords(table1) 
+    };
+
+    const table2Records = { 
+      name: table2.name, 
+      columns: table2.columns, 
+      records: convertRowsToRecords(table2) 
+    };
+
+    const result = innerJoin(table1Records, table2Records, key1, key2);
+    document.getElementById('join-output').textContent = JSON.stringify(result, null, 2);
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+
+function populateJoinTableOptions() {
+  const select1 = document.getElementById('join-table1');
+  const select2 = document.getElementById('join-table2');
+
+  select1.innerHTML = '';
+  select2.innerHTML = '';
+
+  tables.forEach(table => {
+    const option1 = document.createElement('option');
+    option1.value = table.name;
+    option1.textContent = table.name;
+
+    const option2 = option1.cloneNode(true);
+
+    select1.appendChild(option1);
+    select2.appendChild(option2);
+  });
+}
+
+function convertRowsToRecords(table) {
+  return table.rows.map(row => {
+    const record = {};
+    table.columns.forEach((col, index) => {
+      record[col.name] = row[index];
+    });
+    return record;
+  });
 }
