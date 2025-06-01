@@ -69,6 +69,31 @@ table tr:hover {
   background-color: #eef5fa;
 }
 
+.data-insertion {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.select-container {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-left: 4px solid #3c8dbc;
+  border-radius: 6px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.select-container h3{
+  color: #3c8dbc;
+}
+
+
 #table-creation, 
 #data-insertion, 
 #data-selection, 
@@ -142,6 +167,7 @@ pre {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #3c8dbc;
 }
 
 #join-section select,
@@ -151,15 +177,22 @@ pre {
 }
 
 #columns-to-select label {
-  display: block;
-  padding: 5px;
-  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  padding: 6px 0;
+  margin-bottom: 5px;
+  color: #333;
+  font-size: 15px;
 }
 
-#columns-to-select label:hover {
-  background-color: #e9f0f7;
+#columns-to-select input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  accent-color: #4466aa;
 }
+
 
 .alert {
   padding: 10px 15px;

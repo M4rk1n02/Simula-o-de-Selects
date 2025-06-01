@@ -74,13 +74,10 @@ function prepareDataInsertion(table) {
     // Cria um container individual por tabela
     const tableInsertContainer = document.createElement("div");
     tableInsertContainer.id = `data-insertion-${table.name}`;
-    tableInsertContainer.style.border = "1px solid #ccc";
-    tableInsertContainer.style.marginBottom = "20px";
-    tableInsertContainer.style.padding = "10px";
-    tableInsertContainer.style.borderRadius = "8px";
+    tableInsertContainer.classList.add("data-insertion");
 
     // Título da tabela
-    const title = document.createElement("h3");
+    const title = document.createElement("h2");
     title.textContent = `Inserção de dados na tabela "${table.name}"`;
     tableInsertContainer.appendChild(title);
 
@@ -176,7 +173,7 @@ function addRow(tableName) {
     table.rows.push(row);
     inputs.forEach(input => input.value = '');
 
-    updateTableDataDisplay(table);
+    // updateTableDataDisplay(table);
 }
 
 function removeRow(tableName) {
@@ -192,7 +189,7 @@ function removeRow(tableName) {
     }
 
     table.rows.pop();
-    updateTableDataDisplay(table);
+    // updateTableDataDisplay(table);
 }
 
 function displayTableData(table) {
@@ -222,10 +219,7 @@ function renderColumnCheckboxes(table, containerId) {
     // (2) Cria o container específico pra essa tabela
     const tableContainer = document.createElement("div");
     tableContainer.id = `select-container-${table.name}`;
-    tableContainer.style.marginBottom = "20px";
-    tableContainer.style.border = "1px solid #ccc";
-    tableContainer.style.padding = "10px";
-    tableContainer.style.borderRadius = "8px";
+    tableContainer.classList.add("select-container");
 
     const title = document.createElement("h3");
     title.textContent = `Selecionar colunas da tabela "${table.name}"`;

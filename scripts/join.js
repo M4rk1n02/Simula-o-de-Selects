@@ -38,5 +38,3 @@ function project(data, fields) {
     return projected;
   });
 }
-
-window.Table = Table;
