@@ -54,7 +54,9 @@ function getDataFromTable(table, targetColumns) {
  * @returns {{}[]}
  */
 function select(table, selectedColumns) {
-    const colIndices = selectedColumns.map(col => table.columns.indexOf(col));
+    const colIndices = selectedColumns.map(colName =>
+        table.columns.findIndex(c => c.name === colName)
+    );
 
     return table.rows.map(row => {
         const result = {};

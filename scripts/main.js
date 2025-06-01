@@ -156,10 +156,10 @@ function renderColumnCheckboxes(table, containerId) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = `${table.name}-checkbox`;
-    checkbox.value = column;
+    checkbox.value = column.name;
 
     label.appendChild(checkbox);
-    label.append(` ${column}`);
+    label.append(` ${column.name}`);
     tableContainer.appendChild(label);
   });
 
