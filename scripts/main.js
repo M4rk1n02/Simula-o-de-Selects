@@ -9,7 +9,7 @@ function addColumn() {
     div.classList.add('column-row');
 
     const input = document.createElement('input');
-    input.placeholder = 'Column name';
+    input.placeholder = 'Nome da coluna';
 
     const selectType = document.createElement('select');
     const types = ['INT', 'VARCHAR', 'DATE'];
@@ -21,7 +21,7 @@ function addColumn() {
     });
 
     const inputSize = document.createElement('input');
-    inputSize.placeholder = 'Size (optional)';
+    inputSize.placeholder = 'Tamanho (opcional)';
     inputSize.type = 'number';
     inputSize.min = '1';
 
@@ -45,9 +45,9 @@ function finalizeTable() {
     const columnDivs = document.querySelectorAll('#columns-container .column-row');
 
     const columns = Array.from(columnDivs).map(div => {
-        const name = div.querySelector('input[placeholder="Column name"]').value;
+        const name = div.querySelector('input[placeholder="Nome da coluna"]').value;
         const type = div.querySelector('select').value;
-        const size = div.querySelector('input[placeholder="Size (optional)"]').value;
+        const size = div.querySelector('input[placeholder="Tamanho (opcional)"]').value;
 
         return {name, type, size: size || null};
     });
@@ -61,7 +61,7 @@ function finalizeTable() {
 
     tables.push(table);
     currentTable = table;
-    alert(`Table "${tableName}" created!`);
+    alert(`Tabela "${tableName}" criada!`);
     prepareDataInsertion(table);
     tablesByName[table.name] = table;
     renderColumnCheckboxes(table, 'columns-to-select');
@@ -104,11 +104,11 @@ function prepareDataInsertion(table) {
 
     // Botões de controle
     const addBtn = document.createElement("button");
-    addBtn.textContent = "Add Row";
+    addBtn.textContent = "Adicionar Linha";
     addBtn.onclick = () => addRow(table.name);
 
     const removeBtn = document.createElement("button");
-    removeBtn.textContent = "Remove Row";
+    removeBtn.textContent = "Remover Linha";
     removeBtn.onclick = () => removeRow(table.name);
 
     const resultPre = document.createElement("pre");

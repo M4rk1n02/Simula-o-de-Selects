@@ -8,14 +8,14 @@
 </head>
 
 <body>
-  <h1>Select simulator</h1>
+  <h1>Simulador de Select</h1>
 
   <div id="table-creation">
-    <h2>Create Table</h2>
-    <input type="text" id="table-name" placeholder="Table name">
-    <button onclick="addColumn()">Add Column</button>
-    <button onclick="removeColumn()">Remove Column</button>
-    <button onclick="finalizeTable()">Finalize Table</button>
+    <h2>Criar Tabela</h2>
+    <input type="text" id="table-name" placeholder="Nome da Tabela">
+    <button onclick="addColumn()">Adicionar Coluna</button>
+    <button onclick="removeColumn()">Remover Coluna</button>
+    <button onclick="finalizeTable()">Finalizar Tabela</button>
     <div id="columns-container"></div>
   </div>
 
@@ -24,25 +24,25 @@
   </div>
 
   <div id="data-selection">
-    <h2>Select Table</h2>
+    <h2>Selecionar tabela</h2>
     <div id="columns-to-select"></div>
   </div>
 
   <div id="join-section">
-    <h2>Join Tables</h2>
-    <label for="join-table1">Table 1:</label>
+    <h2>Junção de tabelas</h2>
+    <label for="join-table1">Tabela 1:</label>
     <select id="join-table1"></select>
 
-    <label for="join-table2">Table 2:</label>
+    <label for="join-table2">Tabela 2:</label>
     <select id="join-table2"></select>
 
-    <label for="join-key1">Key from Table 1:</label>
+    <label for="join-key1">Key da Tabela 1:</label>
     <input type="text" id="join-key1" placeholder="Ex: id">
 
-    <label for="join-key2">Key from Table 2:</label>
+    <label for="join-key2">Key da Tabela 2:</label>
     <input type="text" id="join-key2" placeholder="Ex: id_cliente">
 
-    <button onclick="performJoin()">Execute Join</button>
+    <button onclick="performJoin()">Juntar</button>
 
     <pre id="join-output"></pre>
   </div>
