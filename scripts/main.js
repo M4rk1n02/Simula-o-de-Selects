@@ -95,6 +95,20 @@ function prepareDataInsertion(table) {
         input.placeholder = `${col.name} (${typeInfo})`;
         input.name = col.name;
         input.style.display = "block";
+        
+        if (col.type === "INT") {
+            input.type = "number";
+            if (col.size) {
+                input.max = "9".repeat(col.size);  // exemplo: size=3 -> max=999
+                input.maxLength = col.size;
+            }
+        } else if (col.type === "VARCHAR") {
+            input.type = "text";
+            if (col.size) input.maxLength = col.size;
+        } else if (col.type === "DATE") {
+            input.type = "date";
+        }
+
         insertFields.appendChild(input);
     });
 
@@ -127,7 +141,41 @@ function addRow(tableName) {
     }
 
     const inputs = document.querySelectorAll(`#data-insertion-${tableName} .insert-fields input`);
-    const row = Array.from(inputs).map(input => input.value.trim());
+    const row = [];
+
+    let errorMessage = null;
+
+    inputs.forEach((input, index) => {
+        const col = table.columns[index];
+        let value = input.value.trim();
+
+        // Validação: INT
+        if (col.type === "INT") {
+            if (value === "" || isNaN(value)) {
+                errorMessage = `O campo ${col.name} deve ser um número.`;
+                return;
+            }
+            if (col.size && value.length > col.size) {
+                errorMessage = `O campo ${col.name} excede o tamanho permitido (${col.size} dígitos).`;
+                return;
+            }
+        }
+
+        // Validação: VARCHAR
+        if (col.type === "VARCHAR") {
+            if (col.size && value.length > col.size) {
+                errorMessage = `O campo ${col.name} excede o tamanho permitido (${col.size} caracteres).`;
+                return;
+            }
+        }
+
+        row.push(value);
+    });
+
+    if (errorMessage) {
+        alert(errorMessage);
+        return;
+    }
 
     if (row.some(value => value === '')) {
         alert("Por favor, preencha todos os campos.");
@@ -270,7 +318,6 @@ function performJoin() {
         alert(err.message);
     }
 }
-
 
 function populateJoinTableOptions() {
     const select1 = document.getElementById('join-table1');
