@@ -42,16 +42,35 @@ function removeColumn() {
 
 function finalizeTable() {
     const tableName = document.getElementById('table-name').value;
+
+    if (!tableName) {
+        alert("Por favor, informe o nome da tabela.");
+        return;
+    }
+
     const columnDivs = document.querySelectorAll('#columns-container .column-row');
 
-    const columns = Array.from(columnDivs).map(div => {
-        const name = div.querySelector('input[placeholder="Nome da coluna"]').value;
+    if (columnDivs.length === 0) {
+        alert("Adicione pelo menos uma coluna.");
+        return;
+    }
+
+    const columns = [];
+    let hasError = false;
+
+    columnDivs.forEach(div => {
+        const name = div.querySelector('input[placeholder="Nome da coluna"]').value.trim();
         const type = div.querySelector('select').value;
         const size = div.querySelector('input[placeholder="Tamanho (opcional)"]').value;
 
-        return {name, type, size: size || null};
-    });
+        if (!name) {
+            alert("Por favor, informe o nome de todas as colunas.");
+            hasError = true;
+            return;
+        }
 
+        columns.push({name, type, size: size || null});
+    });
 
     const table = {
         name: tableName,
@@ -136,6 +155,11 @@ function addRow(tableName) {
     inputs.forEach((input, index) => {
         const col = table.columns[index];
         let value = input.value.trim();
+
+        if (value === '') {
+            errorMessage = `O campo "${col.name}" é obrigatório.`;
+            return;
+        }
 
         // Validação: INT
         if (col.type === "INT") {
