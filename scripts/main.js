@@ -4,9 +4,32 @@ let currentTable = null;
 
 function addColumn() {
   const container = document.getElementById('columns-container');
+
+  const div = document.createElement('div');
+  div.classList.add('column-row'); 
+
   const input = document.createElement('input');
   input.placeholder = 'Column name';
-  container.appendChild(input);
+
+  const selectType = document.createElement('select');
+  const types = ['INT', 'VARCHAR', 'DATE'];
+  types.forEach(type => {
+    const option = document.createElement('option');
+    option.value = type;
+    option.textContent = type;
+    selectType.appendChild(option);
+  });
+
+  const inputSize = document.createElement('input');
+  inputSize.placeholder = 'Size (optional)';
+  inputSize.type = 'number';
+  inputSize.min = '1';
+
+  div.appendChild(input);
+  div.appendChild(selectType);
+  div.appendChild(inputSize);
+
+  container.appendChild(div);
 }
 
 function removeColumn(){
@@ -19,8 +42,16 @@ function removeColumn(){
 
 function finalizeTable() {
   const tableName = document.getElementById('table-name').value;
-  const columnInputs = document.querySelectorAll('#columns-container input');
-  const columns = Array.from(columnInputs).map(input => input.value);
+  const columnDivs = document.querySelectorAll('#columns-container .column-row');
+
+  const columns = Array.from(columnDivs).map(div => {
+    const name = div.querySelector('input[placeholder="Column name"]').value;
+    const type = div.querySelector('select').value;
+    const size = div.querySelector('input[placeholder="Size (optional)"]').value;
+
+    return { name, type, size: size || null }; 
+  });
+
 
   const table = {
     name: tableName,
@@ -43,7 +74,8 @@ function prepareDataInsertion(table) {
 
   table.columns.forEach(col => {
     const input = document.createElement('input');
-    input.placeholder = col;
+    const typeInfo = col.size ? `${col.type}(${col.size})` : col.type;
+    input.placeholder = `${col.name} (${typeInfo})`;
     insertFields.appendChild(input);
   });
 }
@@ -85,7 +117,7 @@ function removeRow() {
 
 function displayTableData(table) {
   const output = document.getElementById('table-data');
-  let text = `Table: ${table.name}\nColumns: ${table.columns.join(', ')}\n`;
+  let text = `Table: ${table.name}\nColumns: ${table.columns.map(c => c.name).join(', ')}\n`;
 
   if (table.rows.length === 0) {
     text += "No data yet.";

@@ -4,38 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Simulação de selects</title>
-<!--  <link rel="stylesheet" href="styles/style.css">-->
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
-  <h1>Simulação de selects</h1>
+  <h1>Select simulator</h1>
 
-  <div id="dcl-group">
-    <div id="table-creation">
-      <h2>Criar Tabela</h2>
-      <input type="text" id="table-name" placeholder="Nome da Tabela">
-      <button onclick="addColumn()">Add Column</button>
-      <button onclick="removeColumn()">Remove Column</button>
-      <button onclick="finalizeTable()">Finalize Table</button>
-      <div id="columns-container"></div>
-    </div>
+  <div id="table-creation">
+    <h2>Create Table</h2>
+    <input type="text" id="table-name" placeholder="Table name">
+    <button onclick="addColumn()">Add Column</button>
+     <button onclick="removeColumn()">Remove Column</button>
+    <button onclick="finalizeTable()">Finalize Table</button>
+    <div id="columns-container"></div>
+  </div>
 
-    <div id="data-insertion" style="display: none;">
-      <h2>Insira a informação na tabela</h2>
-      <div id="insert-fields"></div>
-      <button onclick="addRow()">Add Row</button>
-      <button onclick="removeRow()">Remove Row</button>
-      <pre id="table-data"></pre>
-    </div>
+  <div id="data-insertion" style="display: none;">
+    <h2>Insert data into the table</h2>
+    <div id="insert-fields"></div>
+    <button onclick="addRow()">Add Row</button>
+    <button onclick="removeRow()">Remove Row</button>
+    <pre id="table-data"></pre>
   </div>
 
   <div id="data-selection">
-    <h2>Selecionar tabela</h2>
+    <h2>Select Table</h2>
     <div id="columns-to-select"></div>
   </div>
 
   <script src="scripts/main.js"></script>
-<!--  <script src="scripts/join.js"></script>-->
+  <script src="scripts/join.js"></script>
   <script src="scripts/select.js"></script>
 </body>
 
