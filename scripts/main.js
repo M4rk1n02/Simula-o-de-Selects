@@ -96,16 +96,7 @@ function prepareDataInsertion(table) {
         input.name = col.name;
         input.style.display = "block";
         
-        if (col.type === "INT") {
-            input.type = "number";
-            if (col.size) {
-                input.max = "9".repeat(col.size);  // exemplo: size=3 -> max=999
-                input.maxLength = col.size;
-            }
-        } else if (col.type === "VARCHAR") {
-            input.type = "text";
-            if (col.size) input.maxLength = col.size;
-        } else if (col.type === "DATE") {
+        if (col.type === "DATE") {
             input.type = "date";
         }
 
@@ -128,7 +119,7 @@ function prepareDataInsertion(table) {
 
     tableInsertContainer.appendChild(addBtn);
     tableInsertContainer.appendChild(removeBtn);
-    tableInsertContainer.appendChild(resultPre);
+    // tableInsertContainer.appendChild(resultPre);
 
     containerGroup.appendChild(tableInsertContainer);
 }

@@ -1,19 +1,3 @@
-class Table {
-  constructor(name, columns, primaryKey) {
-    this.name = name; 
-    this.columns = columns; 
-    this.primaryKey = primaryKey; 
-    this.records = []; 
-  }
-
-  insert(record) {
-    if (this.records.some(r => r[this.primaryKey] === record[this.primaryKey])) {
-      throw new Error(`Chave primária duplicada na tabela ${this.name}!`);
-    }
-    this.records.push(record);
-  }
-}
-
 function innerJoin(table1, table2, t1Key, t2Key) {
   const result = [];
 
@@ -56,4 +40,3 @@ function project(data, fields) {
 }
 
 window.Table = Table;
-window.innerJoin = innerJoin;

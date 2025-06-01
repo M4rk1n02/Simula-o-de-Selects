@@ -7,117 +7,109 @@
 }
 
 body {
-  background-color: #f5f5f5;
+  background-color: #f0f2f5;
   color: #333;
   padding: 20px;
   line-height: 1.6;
 }
 
-header {
-  background-color: #4466aa;
+header, h1 {
+  background-color: #3c8dbc;
   color: white;
   padding: 15px 20px;
+  border-radius: 4px;
   margin-bottom: 20px;
-  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-header h1 {
-  color: white;
-  border-bottom: none;
+h1 {
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: 18px;
+  background-color: #e9f0f7;
+  color: #3c8dbc;
+  padding: 8px 12px;
+  border-left: 4px solid #3c8dbc;
+  border-radius: 4px;
+  margin-bottom: 15px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin: 15px 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 table th {
-  background-color: #4466aa;
+  background-color: #3c8dbc;
   color: white;
   padding: 10px;
   text-align: left;
+  font-weight: normal;
 }
 
 table td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
 }
 
 table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-h1, h2, h3 {
-  color: #3a3a3a;
-  margin-bottom: 15px;
+table tr:hover {
+  background-color: #eef5fa;
 }
 
-h1 {
-  font-size: 24px;
-  color: #4466aa;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-}
-
-h2 {
-  font-size: 18px;
-  background-color: #f0f0f0;
-  padding: 8px 12px;
-  border-radius: 4px;
-  border-left: 4px solid #4466aa;
-}
-
-/* Container principal */
 #table-creation, 
 #data-insertion, 
 #data-selection, 
 #join-section {
   background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   padding: 20px;
   margin-bottom: 20px;
-}
-
-/* Inputs e botões */
-input,
-select {
-  padding: 8px 12px;
   border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  width: 200px;
 }
 
-input,
-select:focus {
-  border-color: #4466aa;
+input, select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 5px 0;
+  width: 200px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #3c8dbc;
   outline: none;
-  box-shadow: 0 0 5px rgba(68, 102, 170, 0.3);
+  box-shadow: 0 0 5px rgba(60, 141, 188, 0.3);
 }
 
 button {
-  background-color: #4466aa;
+  background-color: #3c8dbc;
   color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  transition: background-color 0.3s;
+  margin: 5px 5px 10px 0;
+  transition: background-color 0.3s, box-shadow 0.2s;
 }
 
 button:hover {
-  background-color: #335588;
-}
-
-/* Container de colunas */
-#columns-container {
-  margin-top: 15px;
+  background-color: #2f6d9e;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .column-row {
@@ -126,6 +118,7 @@ button:hover {
   margin-bottom: 10px;
   padding: 10px;
   background-color: #f9f9f9;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
@@ -134,21 +127,17 @@ button:hover {
   margin-right: 10px;
 }
 
-/* Área de dados */
 pre {
-  background-color: #f8f8f8;
+  background-color: #f8f9fa;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 15px;
   margin-top: 15px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
   font-family: 'Courier New', Courier, monospace;
   max-height: 300px;
   overflow-y: auto;
 }
 
-/* Seção JOIN */
 #join-section label {
   display: block;
   margin-bottom: 5px;
@@ -158,32 +147,18 @@ pre {
 #join-section select,
 #join-section input {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-/* Checkboxes para seleção */
 #columns-to-select label {
   display: block;
   padding: 5px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 #columns-to-select label:hover {
-  background-color: #f0f0f0;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .column-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .column-row input,
-  .column-row select {
-    width: 100%;
-    margin-bottom: 5px;
-  }
+  background-color: #e9f0f7;
 }
 
 .alert {
@@ -202,4 +177,22 @@ pre {
   background-color: #f2dede;
   color: #a94442;
   border: 1px solid #ebccd1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .column-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .column-row input,
+  .column-row select {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  input, select, button {
+    width: 100%;
+  }
 }
